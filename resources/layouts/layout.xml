@@ -1,0 +1,7 @@
+<layout id="WatchFace">
+	<drawable id="Steps" class="OuterGoalDrawable" />
+	<drawable id="Floors" class="InnerGoalDrawable" />
+	<drawable id="Battery" class="BatteryDrawable" />
+	<drawable id="Date" class="DateDrawable" />
+	<drawable id="Time" class="TimeDrawable" />
+</layout>
