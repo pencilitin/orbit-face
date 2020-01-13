@@ -10,6 +10,8 @@
 	<drawable id="Battery" class="BatteryDrawable">
 	   <param name="batteryY">170</param>
 	</drawable>
-	<drawable id="Date" class="DateDrawable" />
+	<drawable id="Date" class="DateDrawable">
+	   <param name="dateY">70</param>
+	</drawable>
 	<drawable id="Time" class="TimeDrawable" />
 </layout>
