@@ -6,6 +6,7 @@ using Toybox.System;
 class TimeDrawable extends WatchUi.Drawable {
     function initialize(params) {
         Drawable.initialize(params);
+        font = WatchUi.loadResource(Rez.Fonts.TimeFont);
 
         var settings = System.getDeviceSettings();      
         screenWidth = settings.screenWidth;
@@ -28,7 +29,7 @@ class TimeDrawable extends WatchUi.Drawable {
         dc.drawText(
             dc.getWidth() / 2,
             dc.getHeight() / 2,
-            Graphics.FONT_NUMBER_THAI_HOT,
+            font,
             hour,
             Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
 
@@ -37,7 +38,7 @@ class TimeDrawable extends WatchUi.Drawable {
         dc.drawText(
             dc.getWidth() / 2,
             dc.getHeight() / 2,
-            Graphics.FONT_SYSTEM_NUMBER_THAI_HOT,
+            font,
             time.min.format("%02d"),
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
@@ -78,7 +79,8 @@ class TimeDrawable extends WatchUi.Drawable {
                 secAngleEnd);
         }
     }
-    
+
+    private var font;    
     private var screenWidth;
     private var screenHeight;
     private var screenCenterX;
