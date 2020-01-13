@@ -9,12 +9,12 @@ class DateDrawable extends WatchUi.Drawable {
 
         var settings = System.getDeviceSettings();
         dateX = settings.screenWidth / 2;
-        dateY = settings.screenHeight / 4;      
+        dateY = params[:dateY];      
     }
     
     function draw(dc) {
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
-        var date = Lang.format("$1$ $2$ $3$", [today.day_of_week, today.day, today.month]);
+        var date = Lang.format("$1$ $2$", [today.day_of_week, today.day]);
         
         // Draw date.
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
