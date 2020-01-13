@@ -7,7 +7,7 @@ class BatteryDrawable extends WatchUi.Drawable {
 
         var settings = System.getDeviceSettings();
         batteryX = settings.screenWidth / 2;
-        batteryY = settings.screenHeight / 8 + 6;       
+        batteryY = params[:batteryY];       
     }
     
     function draw(dc) {
@@ -26,6 +26,13 @@ class BatteryDrawable extends WatchUi.Drawable {
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         
         // Draw battery.
+        dc.setColor(stats.battery < 25 ? Graphics.COLOR_DK_RED : Graphics.COLOR_DK_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.fillRectangle(
+            batteryX - batteryPadding - batteryWidth,
+            batteryY - (batteryHeight / 2),
+            (batteryWidth - (batteryWidth / 8)) * stats.battery / 100,
+            batteryHeight);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(
             batteryX - batteryPadding - batteryWidth,
             batteryY - (batteryHeight / 2),
@@ -33,9 +40,9 @@ class BatteryDrawable extends WatchUi.Drawable {
             batteryHeight);
         dc.drawRectangle(
             batteryX - batteryPadding - (batteryWidth / 8),
-            batteryY - (batteryHeight / 2) + (batteryHeight / 8),
+            batteryY - (batteryHeight / 3),
             batteryWidth / 8,
-            batteryHeight * 3 / 4);
+            batteryHeight * 2 / 3);
     }
     
     private var batteryX;

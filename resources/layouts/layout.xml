@@ -7,7 +7,9 @@
 	   <param name="radius">75</param>
 	   <param name="textY">192</param>
 	</drawable>
-	<drawable id="Battery" class="BatteryDrawable" />
+	<drawable id="Battery" class="BatteryDrawable">
+	   <param name="batteryY">170</param>
+	</drawable>
 	<drawable id="Date" class="DateDrawable" />
 	<drawable id="Time" class="TimeDrawable" />
 </layout>
