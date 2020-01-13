@@ -33,23 +33,20 @@ class InnerGoalDrawable extends WatchUi.Drawable {
                 630,
                 630 - (360 * floorsPercent));
         }
-        if (floorsPercent >= 0.25) {
-            dc.fillCircle(
-                screenCenterX - goalMeterRadius,
-                screenCenterY,
-                5);
-        }
-        if (floorsPercent >= 0.5) {
-            dc.fillCircle(
-                screenCenterX,
-                screenCenterY - goalMeterRadius,
-                5);
-        }
-        if (floorsPercent >= 0.75) {
-            dc.fillCircle(
-                screenCenterX + goalMeterRadius,
-                screenCenterY,
-                5);
+        
+        // Draw goal meter tick marks.
+        for (var i = 1; i < 6; i++) {
+            if (floorsPercent >= i.toFloat() / 6) {
+                var angleRadians = Math.toRadians(630 - (i * 60));
+                var dotX = screenCenterX + (Math.cos(angleRadians) * goalMeterRadius).toNumber();
+                var dotY = screenCenterY - (Math.sin(angleRadians) * goalMeterRadius).toNumber();
+                dc.setColor(floorsPercent < 1 ? Graphics.COLOR_BLACK : Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                dc.fillCircle(dotX, dotY, 4);
+                if (floorsPercent < 1) {
+                    dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                    dc.drawCircle(dotX, dotY, 4);
+                }
+            }
         }
 
         // Draw floor count.
