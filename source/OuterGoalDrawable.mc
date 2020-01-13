@@ -11,7 +11,8 @@ class OuterGoalDrawable extends WatchUi.Drawable {
         var settings = System.getDeviceSettings();      
         screenCenterX = settings.screenWidth / 2;
         screenCenterY = settings.screenHeight / 2;
-        goalMeterRadius = Helpers.minimum(settings.screenWidth, settings.screenHeight) / 32 * 14;
+        goalMeterRadius = params[:radius];
+        textY = params[:textY];
     }
     
     function draw(dc) {
@@ -33,30 +34,28 @@ class OuterGoalDrawable extends WatchUi.Drawable {
                 630,
                 630 - (360 * stepsPercent));
         }
-        if (stepsPercent >= 0.25) {
-            dc.fillCircle(
-                screenCenterX - goalMeterRadius,
-                screenCenterY,
-                5);
-        }
-        if (stepsPercent >= 0.5) {
-            dc.fillCircle(
-                screenCenterX,
-                screenCenterY - goalMeterRadius,
-                5);
-        }
-        if (stepsPercent >= 0.75) {
-            dc.fillCircle(
-                screenCenterX + goalMeterRadius,
-                screenCenterY,
-                5);
-        }
+
+        // Draw goal meter tick marks.
+        for (var i = 1; i < 12; i++) {
+            if (stepsPercent >= i.toFloat() / 12) {
+                var radius = i % 3 == 0 ? 5 : 3;
+                var angleRadians = Math.toRadians(630 - (i * 30));
+                var dotX = screenCenterX + (Math.cos(angleRadians) * goalMeterRadius).toNumber();
+                var dotY = screenCenterY - (Math.sin(angleRadians) * goalMeterRadius).toNumber();
+                dc.setColor(stepsPercent < 1 ? Graphics.COLOR_BLACK : Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+                dc.fillCircle(dotX, dotY, radius);
+                if (stepsPercent < 1) {
+                    dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+                    dc.drawCircle(dotX, dotY, radius);
+                }
+            }
+        }        
         
         // Draw step count.
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
         dc.drawText(
             screenCenterX,
-            screenCenterY + goalMeterRadius - 5,
+            textY,
             Graphics.FONT_SYSTEM_SMALL,
             info.steps,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -65,4 +64,5 @@ class OuterGoalDrawable extends WatchUi.Drawable {
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
+    private var textY;
 }

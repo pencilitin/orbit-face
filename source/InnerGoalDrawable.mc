@@ -10,7 +10,8 @@ class InnerGoalDrawable extends WatchUi.Drawable {
         var settings = System.getDeviceSettings();      
         screenCenterX = settings.screenWidth / 2;
         screenCenterY = settings.screenHeight / 2;
-        goalMeterRadius = Helpers.minimum(settings.screenWidth, settings.screenHeight) / 32 * 10;
+        goalMeterRadius = params[:radius];
+        textY = params[:textY];
     }
     
     function draw(dc) {
@@ -32,30 +33,27 @@ class InnerGoalDrawable extends WatchUi.Drawable {
                 630,
                 630 - (360 * floorsPercent));
         }
-        if (floorsPercent >= 0.25) {
-            dc.fillCircle(
-                screenCenterX - goalMeterRadius,
-                screenCenterY,
-                5);
-        }
-        if (floorsPercent >= 0.5) {
-            dc.fillCircle(
-                screenCenterX,
-                screenCenterY - goalMeterRadius,
-                5);
-        }
-        if (floorsPercent >= 0.75) {
-            dc.fillCircle(
-                screenCenterX + goalMeterRadius,
-                screenCenterY,
-                5);
+        
+        // Draw goal meter tick marks.
+        for (var i = 1; i < 6; i++) {
+            if (floorsPercent >= i.toFloat() / 6) {
+                var angleRadians = Math.toRadians(630 - (i * 60));
+                var dotX = screenCenterX + (Math.cos(angleRadians) * goalMeterRadius).toNumber();
+                var dotY = screenCenterY - (Math.sin(angleRadians) * goalMeterRadius).toNumber();
+                dc.setColor(floorsPercent < 1 ? Graphics.COLOR_BLACK : Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                dc.fillCircle(dotX, dotY, 4);
+                if (floorsPercent < 1) {
+                    dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                    dc.drawCircle(dotX, dotY, 4);
+                }
+            }
         }
 
         // Draw floor count.
         dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
         dc.drawText(
             screenCenterX,
-            screenCenterY + goalMeterRadius - 2,
+            textY,
             Graphics.FONT_SYSTEM_SMALL,
             info.floorsClimbed,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -64,4 +62,5 @@ class InnerGoalDrawable extends WatchUi.Drawable {
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
+    private var textY;
 }
