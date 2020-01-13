@@ -11,7 +11,8 @@ class OuterGoalDrawable extends WatchUi.Drawable {
         var settings = System.getDeviceSettings();      
         screenCenterX = settings.screenWidth / 2;
         screenCenterY = settings.screenHeight / 2;
-        goalMeterRadius = Helpers.minimum(settings.screenWidth, settings.screenHeight) / 32 * 14;
+        goalMeterRadius = params[:radius];
+        textY = params[:textY];
     }
     
     function draw(dc) {
@@ -56,7 +57,7 @@ class OuterGoalDrawable extends WatchUi.Drawable {
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
         dc.drawText(
             screenCenterX,
-            screenCenterY + goalMeterRadius - 5,
+            textY,
             Graphics.FONT_SYSTEM_SMALL,
             info.steps,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -65,4 +66,5 @@ class OuterGoalDrawable extends WatchUi.Drawable {
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
+    private var textY;
 }

@@ -10,7 +10,8 @@ class InnerGoalDrawable extends WatchUi.Drawable {
         var settings = System.getDeviceSettings();      
         screenCenterX = settings.screenWidth / 2;
         screenCenterY = settings.screenHeight / 2;
-        goalMeterRadius = Helpers.minimum(settings.screenWidth, settings.screenHeight) / 32 * 10;
+        goalMeterRadius = params[:radius];
+        textY = params[:textY];
     }
     
     function draw(dc) {
@@ -55,7 +56,7 @@ class InnerGoalDrawable extends WatchUi.Drawable {
         dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
         dc.drawText(
             screenCenterX,
-            screenCenterY + goalMeterRadius - 2,
+            textY,
             Graphics.FONT_SYSTEM_SMALL,
             info.floorsClimbed,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
@@ -64,4 +65,5 @@ class InnerGoalDrawable extends WatchUi.Drawable {
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
+    private var textY;
 }
