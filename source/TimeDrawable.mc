@@ -25,7 +25,7 @@ class TimeDrawable extends WatchUi.Drawable {
         }
 
         // Draw hours.
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.Properties.getValue(Properties.hoursColor), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             dc.getWidth() / 2,
             dc.getHeight() / 2,
@@ -34,7 +34,7 @@ class TimeDrawable extends WatchUi.Drawable {
             Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Draw minutes.
-        dc.setColor(Graphics.COLOR_PURPLE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.Properties.getValue(Properties.minutesColor), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             dc.getWidth() / 2,
             dc.getHeight() / 2,
@@ -68,7 +68,7 @@ class TimeDrawable extends WatchUi.Drawable {
                 dc.setClip(x, y, width, height);
             }
                     
-            dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Application.Properties.getValue(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
             dc.setPenWidth(secondsPenWidth);
             dc.drawArc(
                 screenCenterX,

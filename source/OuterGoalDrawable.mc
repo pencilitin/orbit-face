@@ -1,4 +1,3 @@
-using Helpers;
 using Toybox.ActivityMonitor;
 using Toybox.Application;
 using Toybox.System;
@@ -16,53 +15,67 @@ class OuterGoalDrawable extends WatchUi.Drawable {
     }
     
     function draw(dc) {
-        var info = ActivityMonitor.getInfo();
-        var stepsPercent = info.steps.toFloat() / info.stepGoal.toFloat();
-        if (stepsPercent > 1) {
-            stepsPercent = 1;
+        if (Application.Properties.getValue(Properties.outerGoalType) == -1) {
+            return;
         }
         
+        var goalPercent = current.toFloat() / goal.toFloat();
+        if (goalPercent > 1) {
+            goalPercent = 1;
+        }
+        
+        var outerGoalColor = Application.Properties.getValue(Properties.outerGoalColor);
+        var backgroundColor = Application.Properties.getValue(Properties.backgroundColor);
+
         // Draw step goal meter.
-        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(outerGoalColor, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(2);
-        if (stepsPercent != 0) {
+        if (goalPercent != 0) {
             dc.drawArc(
                 screenCenterX,
                 screenCenterY,
                 goalMeterRadius,
                 Graphics.ARC_CLOCKWISE,
                 630,
-                630 - (360 * stepsPercent));
+                630 - (360 * goalPercent));
         }
 
         // Draw goal meter tick marks.
+        var tickFillColor = goalPercent < 1 ? backgroundColor : outerGoalColor;
         for (var i = 1; i < 12; i++) {
-            if (stepsPercent >= i.toFloat() / 12) {
+            if (goalPercent >= i.toFloat() / 12) {
                 var radius = i % 3 == 0 ? 5 : 3;
                 var angleRadians = Math.toRadians(630 - (i * 30));
                 var dotX = screenCenterX + (Math.cos(angleRadians) * goalMeterRadius).toNumber();
                 var dotY = screenCenterY - (Math.sin(angleRadians) * goalMeterRadius).toNumber();
-                dc.setColor(stepsPercent < 1 ? Graphics.COLOR_BLACK : Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+                dc.setColor(tickFillColor, Graphics.COLOR_TRANSPARENT);
                 dc.fillCircle(dotX, dotY, radius);
-                if (stepsPercent < 1) {
-                    dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+                if (goalPercent < 1) {
+                    dc.setColor(outerGoalColor, Graphics.COLOR_TRANSPARENT);
                     dc.drawCircle(dotX, dotY, radius);
                 }
             }
         }        
         
         // Draw step count.
-        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_BLACK);
+        dc.setColor(outerGoalColor, backgroundColor);
         dc.drawText(
             screenCenterX,
             textY,
             Graphics.FONT_SYSTEM_SMALL,
-            info.steps,
+            current,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function setGoalValues(current, goal) {
+        self.current = current;
+        self.goal = goal;
     }
     
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
     private var textY;
+    private var current;
+    private var goal;
 }

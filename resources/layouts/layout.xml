@@ -1,9 +1,10 @@
 <layout id="WatchFace">
-	<drawable id="Steps" class="OuterGoalDrawable">
+    <drawable id="Background" class="BackgroundDrawable"/>
+	<drawable id="OuterGoal" class="OuterGoalDrawable">
 	   <param name="radius">95</param>
 	   <param name="textY">214</param>
 	</drawable>
-	<drawable id="Floors" class="InnerGoalDrawable">
+	<drawable id="InnerGoal" class="InnerGoalDrawable">
 	   <param name="radius">75</param>
 	   <param name="textY">192</param>
 	</drawable>
@@ -13,5 +14,5 @@
 	<drawable id="Date" class="DateDrawable">
 	   <param name="dateY">70</param>
 	</drawable>
-	<drawable id="Time" class="TimeDrawable" />
+	<drawable id="Time" class="TimeDrawable"/>
 </layout>
