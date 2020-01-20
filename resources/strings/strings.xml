@@ -1,3 +1,21 @@
 <strings>
     <string id="AppName">Orbit</string>
+    <string id="ThemeTitle">Color Theme</string>
+    <string id="OuterGoalTitle">Outer Goal</string>
+    <string id="InnerGoalTitle">Inner Goal</string>
+    
+    <string id="ThemeMercury">Mercury (Blue, Gray)</string>
+    <string id="ThemeVenus">Venus (Orange, Yellow, Red)</string>
+    <string id="ThemeEarth">Earth (Blue, Green, White)</string>
+    <string id="ThemeMars">Mars (Red)</string>
+    <string id="ThemeJupiter">Jupiter (Red, Orange, Yellow)</string>
+    <string id="ThemeSaturn">Saturn (Gray, White, Pink)</string>
+    <string id="ThemeUranus">Uranus (White, Blue)</string>
+    <string id="ThemeNeptune">Neptune (Blue)</string>
+    <string id="ThemePluto">Pluto (Red, Blue, Pink)</string>
+
+    <string id="GoalTypeOff">Off</string>    
+    <string id="GoalTypeSteps">Steps</string>
+    <string id="GoalTypeFloorsClimbed">Floors Climbed</string>
+    <string id="GoalTypeActiveMinutes">Active Minutes</string>
 </strings>

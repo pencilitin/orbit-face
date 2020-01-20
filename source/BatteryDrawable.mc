@@ -13,8 +13,9 @@ class BatteryDrawable extends WatchUi.Drawable {
     function draw(dc) {
         var stats = System.getSystemStats();
         var batteryPercent = Lang.format("$1$%", [stats.battery.toNumber()]);
+        var batteryColor = Application.Properties.getValue(Properties.batteryColor);
 
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(batteryColor, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(1);
         
         // Draw battery percent.
@@ -32,7 +33,7 @@ class BatteryDrawable extends WatchUi.Drawable {
             batteryY - (batteryHeight / 2),
             (batteryWidth - (batteryWidth / 8)) * stats.battery / 100,
             batteryHeight);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(batteryColor, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(
             batteryX - batteryPadding - batteryWidth,
             batteryY - (batteryHeight / 2),

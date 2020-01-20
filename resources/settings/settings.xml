@@ -1,0 +1,31 @@
+<settings>
+    <setting propertyKey="@Properties.Theme" title="@Strings.ThemeTitle">
+        <settingConfig type="list">
+            <listEntry value="1">@Strings.ThemeMercury</listEntry>
+            <listEntry value="2">@Strings.ThemeVenus</listEntry>
+            <listEntry value="3">@Strings.ThemeEarth</listEntry>
+            <listEntry value="4">@Strings.ThemeMars</listEntry>
+            <listEntry value="5">@Strings.ThemeJupiter</listEntry>
+            <listEntry value="6">@Strings.ThemeSaturn</listEntry>
+            <listEntry value="7">@Strings.ThemeUranus</listEntry>
+            <listEntry value="8">@Strings.ThemeNeptune</listEntry>
+            <listEntry value="9">@Strings.ThemePluto</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.OuterGoalType" title="@Strings.OuterGoalTitle">
+        <settingConfig type="list">
+            <listEntry value="-1">@Strings.GoalTypeOff</listEntry>
+            <listEntry value="0">@Strings.GoalTypeSteps</listEntry>
+            <listEntry value="1">@Strings.GoalTypeFloorsClimbed</listEntry>
+            <listEntry value="2">@Strings.GoalTypeActiveMinutes</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.InnerGoalType" title="@Strings.InnerGoalTitle">
+        <settingConfig type="list">
+            <listEntry value="-1">@Strings.GoalTypeOff</listEntry>
+            <listEntry value="0">@Strings.GoalTypeSteps</listEntry>
+            <listEntry value="1">@Strings.GoalTypeFloorsClimbed</listEntry>
+            <listEntry value="2">@Strings.GoalTypeActiveMinutes</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

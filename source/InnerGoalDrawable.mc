@@ -1,4 +1,3 @@
-using Helpers;
 using Toybox.ActivityMonitor;
 using Toybox.System;
 using Toybox.WatchUi;
@@ -15,52 +14,66 @@ class InnerGoalDrawable extends WatchUi.Drawable {
     }
     
     function draw(dc) {
-        var info = ActivityMonitor.getInfo();
-        var floorsPercent = info.floorsClimbed.toFloat() / info.floorsClimbedGoal.toFloat();
-        if (floorsPercent > 1) {
-            floorsPercent = 1;
+        if (Application.Properties.getValue(Properties.innerGoalType) == -1) {
+            return;
         }
         
+        var goalPercent = current.toFloat() / goal.toFloat();
+        if (goalPercent > 1) {
+            goalPercent = 1;
+        }
+        
+        var innerGoalColor = Application.Properties.getValue(Properties.innerGoalColor);
+        var backgroundColor = Application.Properties.getValue(Properties.backgroundColor);
+
         // Draw floor goal meter.
-        dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(innerGoalColor, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(2);
-        if (floorsPercent != 0) {
+        if (goalPercent != 0) {
             dc.drawArc(
                 screenCenterX,
                 screenCenterY,
                 goalMeterRadius,
                 Graphics.ARC_CLOCKWISE,
                 630,
-                630 - (360 * floorsPercent));
+                630 - (360 * goalPercent));
         }
         
         // Draw goal meter tick marks.
+        var tickFillColor = goalPercent < 1 ? backgroundColor : innerGoalColor;
         for (var i = 1; i < 6; i++) {
-            if (floorsPercent >= i.toFloat() / 6) {
+            if (goalPercent >= i.toFloat() / 6) {
                 var angleRadians = Math.toRadians(630 - (i * 60));
                 var dotX = screenCenterX + (Math.cos(angleRadians) * goalMeterRadius).toNumber();
                 var dotY = screenCenterY - (Math.sin(angleRadians) * goalMeterRadius).toNumber();
-                dc.setColor(floorsPercent < 1 ? Graphics.COLOR_BLACK : Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                dc.setColor(tickFillColor, Graphics.COLOR_TRANSPARENT);
                 dc.fillCircle(dotX, dotY, 4);
-                if (floorsPercent < 1) {
-                    dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+                if (goalPercent < 1) {
+                    dc.setColor(innerGoalColor, backgroundColor);
                     dc.drawCircle(dotX, dotY, 4);
                 }
             }
         }
 
         // Draw floor count.
-        dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_BLACK);
+        dc.setColor(innerGoalColor, backgroundColor);
         dc.drawText(
             screenCenterX,
             textY,
             Graphics.FONT_SYSTEM_SMALL,
-            info.floorsClimbed,
+            current,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
+    function setGoalValues(current, goal) {
+        self.current = current;
+        self.goal = goal;
+    }
+    
     private var screenCenterX;
     private var screenCenterY;
     private var goalMeterRadius;
     private var textY;
+    private var current;
+    private var goal;
 }

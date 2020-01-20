@@ -17,7 +17,7 @@ class DateDrawable extends WatchUi.Drawable {
         var date = Lang.format("$1$ $2$", [today.day_of_week, today.day]);
         
         // Draw date.
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.Properties.getValue(Properties.dateColor), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             dateX,
             dateY,
