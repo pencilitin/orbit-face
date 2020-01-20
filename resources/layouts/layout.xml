@@ -1,11 +1,23 @@
 <layout id="WatchFace">
     <drawable id="Background" class="BackgroundDrawable"/>
-	<drawable id="OuterGoal" class="OuterGoalDrawable">
+	<drawable id="OuterGoal" class="GoalDrawable">
+	   <param name="goalTypeName">"OuterGoalType"</param>
+	   <param name="goalColorName">"OuterGoalColor"</param>
 	   <param name="radius">95</param>
+	   <param name="tickCount">12</param>
+	   <param name="largeTickRadius">5</param>
+	   <param name="smallTickRadius">3</param>
+	   <param name="largeTickFrequency">3</param>
 	   <param name="textY">214</param>
 	</drawable>
-	<drawable id="InnerGoal" class="InnerGoalDrawable">
+	<drawable id="InnerGoal" class="GoalDrawable">
+       <param name="goalTypeName">"InnerGoalType"</param>
+       <param name="goalColorName">"InnerGoalColor"</param>
 	   <param name="radius">75</param>
+       <param name="tickCount">6</param>
+       <param name="largeTickRadius">4</param>
+       <param name="smallTickRadius">4</param>
+       <param name="largeTickFrequency">1</param>
 	   <param name="textY">192</param>
 	</drawable>
 	<drawable id="Battery" class="BatteryDrawable">
