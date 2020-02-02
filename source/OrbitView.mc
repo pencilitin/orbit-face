@@ -49,10 +49,12 @@ class OrbitView extends WatchUi.WatchFace {
     }
 
     private function updateGoals() {
-        var outerGoalValues = getGoalValues(Application.Properties.getValue(Properties.outerGoalType));
-        outerGoalDrawable.setGoalValues(outerGoalValues[:current], outerGoalValues[:goal]);
-        var innerGoalValues = getGoalValues(Application.Properties.getValue(Properties.innerGoalType));
-        innerGoalDrawable.setGoalValues(innerGoalValues[:current], innerGoalValues[:goal]);
+        var outerGoalType = Application.Properties.getValue(Properties.outerGoalType);
+        var outerGoalValues = getGoalValues(outerGoalType);
+        outerGoalDrawable.setGoalValues(outerGoalValues[:current], outerGoalValues[:goal], outerGoalType);
+        var innerGoalType = Application.Properties.getValue(Properties.innerGoalType);
+        var innerGoalValues = getGoalValues(innerGoalType);
+        innerGoalDrawable.setGoalValues(innerGoalValues[:current], innerGoalValues[:goal], innerGoalType);
     }
     
     private function getGoalValues(goalType) {

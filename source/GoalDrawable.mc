@@ -1,15 +1,12 @@
 using Toybox.ActivityMonitor;
-using Toybox.Application;
 using Toybox.System;
 using Toybox.WatchUi;
 
-class GoalDrawable extends WatchUi.Drawable {
+class GoalDrawable extends OrbitDrawable {
     function initialize(params) {
-        Drawable.initialize(params);
-
-        var settings = System.getDeviceSettings();      
-        screenCenterX = settings.screenWidth / 2;
-        screenCenterY = settings.screenHeight / 2;
+        OrbitDrawable.initialize(params);
+        font = WatchUi.loadResource(Rez.Fonts.GoalFont);
+        iconFont = WatchUi.loadResource(Rez.Fonts.IconFont);
         goalTypeName = params[:goalTypeName];
         goalColorName = params[:goalColorName];
         goalMeterRadius = params[:radius];
@@ -30,8 +27,8 @@ class GoalDrawable extends WatchUi.Drawable {
             goalPercent = 1;
         }
         
-        var goalColor = Application.Properties.getValue(goalColorName);
-        var backgroundColor = Application.Properties.getValue(Properties.backgroundColor);
+        var goalColor = getColor(goalColorName);
+        var backgroundColor = getColor(Properties.backgroundColor);
 
         // Draw goal meter.
         dc.setColor(goalColor, Graphics.COLOR_TRANSPARENT);
@@ -64,22 +61,25 @@ class GoalDrawable extends WatchUi.Drawable {
         }        
         
         // Draw goal value.
+        var goalTypeString = goalType.toString();
+        var currentString = current.toString();
+        var iconWidth = dc.getTextWidthInPixels(goalTypeString, iconFont);
+        var valueWidth = dc.getTextWidthInPixels(currentString, font);
+        var startX = screenCenterX - ((iconWidth + valueWidth) / 2);
+        
         dc.setColor(goalColor, backgroundColor);
-        dc.drawText(
-            screenCenterX,
-            textY,
-            Graphics.FONT_SYSTEM_SMALL,
-            current,
-            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(startX, textY, iconFont, goalTypeString, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(startX + iconWidth, textY, font, currentString, Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    function setGoalValues(current, goal) {
+    function setGoalValues(current, goal, goalType) {
         self.current = current;
         self.goal = goal;
+        self.goalType = goalType;
     }
     
-    private var screenCenterX;
-    private var screenCenterY;
+    private var font;
+    private var iconFont;
     private var goalTypeName;
     private var goalColorName;
     private var goalMeterRadius;
@@ -90,4 +90,5 @@ class GoalDrawable extends WatchUi.Drawable {
     private var textY;
     private var current;
     private var goal;
+    private var goalType;
 }

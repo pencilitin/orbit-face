@@ -1,13 +1,14 @@
 <properties>
     <property id="Theme" type="number">8</property>
-    <property id="BackgroundColor" type="number">0</property>
-    <property id="HoursColor" type="number">0</property>
-    <property id="MinutesColor" type="number">0</property>
-    <property id="SecondsColor" type="number">0</property>
-    <property id="OuterGoalColor" type="number">0</property>
-    <property id="InnerGoalColor" type="number">0</property>
-    <property id="DateColor" type="number">0</property>
-    <property id="BatteryColor" type="number">0</property>
+    <property id="BackgroundColor" type="number">-1</property>
+    <property id="HoursColor" type="number">-1</property>
+    <property id="MinutesColor" type="number">-1</property>
+    <property id="SecondsColor" type="number">-1</property>
+    <property id="OuterGoalColor" type="number">-1</property>
+    <property id="InnerGoalColor" type="number">-1</property>
+    <property id="DateColor" type="number">-1</property>
+    <property id="BatteryColor" type="number">-1</property>
     <property id="OuterGoalType" type="number">0</property>
     <property id="InnerGoalType" type="number">1</property>
+    <property id="AppVersion" type="string">1.0.0</property>
 </properties>

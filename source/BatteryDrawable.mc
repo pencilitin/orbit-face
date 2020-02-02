@@ -1,52 +1,50 @@
 using Toybox.System;
 using Toybox.WatchUi;
 
-class BatteryDrawable extends WatchUi.Drawable {
+class BatteryDrawable extends OrbitDrawable {
     function initialize(params) {
-        Drawable.initialize(params);
-
-        var settings = System.getDeviceSettings();
-        batteryX = settings.screenWidth / 2;
+        OrbitDrawable.initialize(params);
+        font = WatchUi.loadResource(Rez.Fonts.BatteryFont);
         batteryY = params[:batteryY];       
     }
     
     function draw(dc) {
         var stats = System.getSystemStats();
         var batteryPercent = Lang.format("$1$%", [stats.battery.toNumber()]);
-        var batteryColor = Application.Properties.getValue(Properties.batteryColor);
+        var batteryColor = getColor(Properties.batteryColor);
 
         dc.setColor(batteryColor, Graphics.COLOR_TRANSPARENT);
         dc.setPenWidth(1);
         
         // Draw battery percent.
         dc.drawText(
-            batteryX + batteryPadding,
+            screenCenterX + batteryPadding,
             batteryY,
-            Graphics.FONT_XTINY,
+            font,
             batteryPercent,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         
         // Draw battery.
         dc.setColor(stats.battery < 25 ? Graphics.COLOR_DK_RED : Graphics.COLOR_DK_GREEN, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(
-            batteryX - batteryPadding - batteryWidth,
+            screenCenterX - batteryPadding - batteryWidth,
             batteryY - (batteryHeight / 2),
             (batteryWidth - (batteryWidth / 8)) * stats.battery / 100,
             batteryHeight);
         dc.setColor(batteryColor, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(
-            batteryX - batteryPadding - batteryWidth,
+            screenCenterX - batteryPadding - batteryWidth,
             batteryY - (batteryHeight / 2),
             batteryWidth - (batteryWidth / 8),
             batteryHeight);
         dc.drawRectangle(
-            batteryX - batteryPadding - (batteryWidth / 8),
+            screenCenterX - batteryPadding - (batteryWidth / 8),
             batteryY - (batteryHeight / 3),
             batteryWidth / 8,
             batteryHeight * 2 / 3);
     }
-    
-    private var batteryX;
+
+    private var font;    
     private var batteryY;
     private const batteryWidth = 20;
     private const batteryHeight = 10;

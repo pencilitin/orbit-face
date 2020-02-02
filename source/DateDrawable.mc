@@ -1,14 +1,10 @@
 using Toybox.System;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
-using Toybox.WatchUi;
 
-class DateDrawable extends WatchUi.Drawable {
+class DateDrawable extends OrbitDrawable {
     function initialize(params) {
-        Drawable.initialize(params);
-
-        var settings = System.getDeviceSettings();
-        dateX = settings.screenWidth / 2;
+        OrbitDrawable.initialize(params);
         dateY = params[:dateY];      
     }
     
@@ -17,15 +13,9 @@ class DateDrawable extends WatchUi.Drawable {
         var date = Lang.format("$1$ $2$", [today.day_of_week, today.day]);
         
         // Draw date.
-        dc.setColor(Application.Properties.getValue(Properties.dateColor), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            dateX,
-            dateY,
-            Graphics.FONT_TINY,
-            date,
-            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(getColor(Properties.dateColor), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(screenCenterX, dateY, Graphics.FONT_TINY, date, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
     }
     
-    private var dateX;
     private var dateY;
 }
