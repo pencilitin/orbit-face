@@ -3,6 +3,15 @@
     <string id="ThemeTitle">Color Theme</string>
     <string id="OuterGoalTitle">Outer Goal</string>
     <string id="InnerGoalTitle">Inner Goal</string>
+    <string id="BackgroundColorTitle">Background Color</string>
+    <string id="HoursColorTitle">Hours Color</string>
+    <string id="MinutesColorTitle">Minutes Color</string>
+    <string id="SecondsColorTitle">Seconds Color</string>
+    <string id="OuterGoalColorTitle">Outer Goal Color</string>
+    <string id="InnerGoalColorTitle">Inner Goal Color</string>
+    <string id="DateColorTitle">Date Color</string>
+    <string id="BatteryColorTitle">Battery Color</string>
+    <string id="AppVersionTitle">App Version</string>
     
     <string id="ThemeMercury">Mercury (Blue, Gray)</string>
     <string id="ThemeVenus">Venus (Orange, Yellow, Red)</string>
@@ -18,4 +27,22 @@
     <string id="GoalTypeSteps">Steps</string>
     <string id="GoalTypeFloorsClimbed">Floors Climbed</string>
     <string id="GoalTypeActiveMinutes">Active Minutes</string>
+
+    <string id="ColorFromTheme">From Theme</string>    
+    <string id="ColorWhite">White</string>
+    <string id="ColorLightGray">Light Gray</string>
+    <string id="ColorDarkGray">Dark Gray</string>
+    <string id="ColorBlack">Black</string>
+    <string id="ColorRed">Red</string>
+    <string id="ColorDarkRed">Dark Red</string>
+    <string id="ColorOrange">Orange</string>
+    <string id="ColorYellow">Yellow</string>
+    <string id="ColorGreen">Green</string>
+    <string id="ColorDarkGreen">Dark Green</string>
+    <string id="ColorBlue">Blue</string>
+    <string id="ColorDarkBlue">Dark Blue</string>
+    <string id="ColorPurple">Purple</string>
+    <string id="ColorPink">Pink</string>
+    <string id="ColorBrown">Brown</string>
+    <string id="ColorSalmon">Salmon</string>
 </strings>

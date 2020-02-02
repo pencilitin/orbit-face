@@ -1,14 +1,12 @@
-using Toybox.Application;
-using Toybox.WatchUi;
 using Toybox.System;
 
-class BackgroundDrawable extends WatchUi.Drawable {
+class BackgroundDrawable extends OrbitDrawable {
     function initialize(params) {
-        Drawable.initialize(params);
+        OrbitDrawable.initialize(params);
     }
     
     public function draw(dc) {
-        dc.setColor(Graphics.COLOR_TRANSPARENT, Application.Properties.getValue(Properties.backgroundColor));
+        dc.setColor(Graphics.COLOR_TRANSPARENT, getColor(Properties.backgroundColor));
         dc.clear();
     }
 }

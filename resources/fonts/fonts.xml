@@ -1,3 +1,6 @@
 <fonts>
+    <font id="GoalFont" filename="openSansBold-30.fnt" antialias="true"/>
     <font id="TimeFont" filename="OpenSansBold-112.fnt" antialias="true"/>
+    <font id="BatteryFont" filename="OpenSansBold-22.fnt" antialias="true"/>
+    <font id="IconFont" filename="Icons-30.fnt" antialias="true"/>
 </fonts>

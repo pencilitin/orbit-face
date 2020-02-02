@@ -1,1 +1,7 @@
 project.manifest = manifest.xml
+
+# Explicitly specify source directory.
+base.sourcePath = source
+
+# Smaller round watches use the smaller time font.
+round-218x218.resourcePath = $(round-218x218.resourcePath);resources-small-time

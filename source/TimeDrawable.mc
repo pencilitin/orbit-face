@@ -3,16 +3,10 @@ using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.System;
 
-class TimeDrawable extends WatchUi.Drawable {
+class TimeDrawable extends OrbitDrawable {
     function initialize(params) {
-        Drawable.initialize(params);
+        OrbitDrawable.initialize(params);
         font = WatchUi.loadResource(Rez.Fonts.TimeFont);
-
-        var settings = System.getDeviceSettings();      
-        screenWidth = settings.screenWidth;
-        screenHeight = settings.screenHeight;
-        screenCenterX = screenWidth / 2;
-        screenCenterY = screenHeight / 2;
         secondsRadius = Helpers.minimum(screenWidth, screenHeight) / 2 - secondsPenWidth;
     }
     
@@ -20,27 +14,22 @@ class TimeDrawable extends WatchUi.Drawable {
         var time = System.getClockTime();
 
         var hour = time.hour;       
-        if (!System.getDeviceSettings().is24Hour && hour > 12) {
-            hour = hour - 12;
+        if (!System.getDeviceSettings().is24Hour) {
+            if (hour == 0) {
+                hour = 12;
+            }
+            if (hour > 12) {
+                hour = hour - 12;
+            }
         }
 
         // Draw hours.
-        dc.setColor(Application.Properties.getValue(Properties.hoursColor), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            dc.getWidth() / 2,
-            dc.getHeight() / 2,
-            font,
-            hour,
-            Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(getColor(Properties.hoursColor), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(screenCenterX, screenCenterY, font, hour, Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Draw minutes.
-        dc.setColor(Application.Properties.getValue(Properties.minutesColor), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(
-            dc.getWidth() / 2,
-            dc.getHeight() / 2,
-            font,
-            time.min.format("%02d"),
-            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(getColor(Properties.minutesColor), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(screenCenterX, screenCenterY, font, time.min.format("%02d"), Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Draw seconds.
         drawSeconds(dc, false);
@@ -68,23 +57,13 @@ class TimeDrawable extends WatchUi.Drawable {
                 dc.setClip(x, y, width, height);
             }
                     
-            dc.setColor(Application.Properties.getValue(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
+            dc.setColor(getColor(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
             dc.setPenWidth(secondsPenWidth);
-            dc.drawArc(
-                screenCenterX,
-                screenCenterY,
-                secondsRadius,
-                Graphics.ARC_CLOCKWISE,
-                secAngleStart,
-                secAngleEnd);
+            dc.drawArc(screenCenterX, screenCenterY, secondsRadius, Graphics.ARC_CLOCKWISE, secAngleStart, secAngleEnd);
         }
     }
 
     private var font;    
-    private var screenWidth;
-    private var screenHeight;
-    private var screenCenterX;
-    private var screenCenterY;
     private var secondsRadius;
     private const secondsPenWidth = 5;
 }
