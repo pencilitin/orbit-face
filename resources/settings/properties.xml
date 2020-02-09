@@ -1,5 +1,5 @@
 <properties>
-    <property id="Theme" type="number">8</property>
+    <property id="Theme" type="number">3</property>
     <property id="BackgroundColor" type="number">-1</property>
     <property id="HoursColor" type="number">-1</property>
     <property id="MinutesColor" type="number">-1</property>
@@ -10,5 +10,5 @@
     <property id="BatteryColor" type="number">-1</property>
     <property id="OuterGoalType" type="number">0</property>
     <property id="InnerGoalType" type="number">1</property>
-    <property id="AppVersion" type="string">1.0.0</property>
+    <property id="AppVersion" type="string">1.0.1</property>
 </properties>
