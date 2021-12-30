@@ -10,5 +10,6 @@
     <property id="BatteryColor" type="number">-1</property>
     <property id="OuterGoalType" type="number">0</property>
     <property id="InnerGoalType" type="number">1</property>
-    <property id="AppVersion" type="string">1.0.1</property>
+    <property id="ShowSeconds" type="boolean">true</property>
+    <property id="AppVersion" type="string">1.1.0</property>
 </properties>
