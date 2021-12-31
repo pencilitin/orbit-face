@@ -3,6 +3,7 @@
     <string id="ThemeTitle">Color Theme</string>
     <string id="OuterGoalTitle">Outer Goal</string>
     <string id="InnerGoalTitle">Inner Goal</string>
+    <string id="ShowSecondsTitle">Show Seconds</string>
     <string id="BackgroundColorTitle">Background Color</string>
     <string id="HoursColorTitle">Hours Color</string>
     <string id="MinutesColorTitle">Minutes Color</string>

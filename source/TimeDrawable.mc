@@ -36,30 +36,32 @@ class TimeDrawable extends OrbitDrawable {
     }
     
     public function drawSeconds(dc, partialUpdate) {
-        var time = System.getClockTime();
-        if (time.sec > 0) {
-            var secAngleEnd = 450 - (time.sec * 6);
-            var secAngleStart = 90;
-            if (partialUpdate) {
-                var secAngleEndRadians = Math.toRadians(secAngleEnd);
-                var secAngleEndX = screenCenterX + (Math.cos(secAngleEndRadians) * secondsRadius).toNumber();
-                var secAngleEndY = screenCenterY - (Math.sin(secAngleEndRadians) * secondsRadius).toNumber();
-                secAngleStart = secAngleEnd + 6;
-                var secAngleStartRadians = Math.toRadians(secAngleStart);
-                var secAngleStartX = screenCenterX + (Math.cos(secAngleStartRadians) * secondsRadius).toNumber();
-                var secAngleStartY = screenCenterY - (Math.sin(secAngleStartRadians) * secondsRadius).toNumber();
-                
-                var x = Helpers.minimum(secAngleStartX, secAngleEndX) - (secondsPenWidth + 2);
-                var y = Helpers.minimum(secAngleStartY, secAngleEndY) - (secondsPenWidth + 2);
-                var width = (secAngleStartX - secAngleEndX).abs() + ((secondsPenWidth + 2) * 2);
-                var height = (secAngleStartY - secAngleEndY).abs() + ((secondsPenWidth + 2) * 2);
-        
-                dc.setClip(x, y, width, height);
-            }
+        if (Application.Properties.getValue(Properties.showSeconds)) {
+            var time = System.getClockTime();
+            if (time.sec > 0) {
+                var secAngleEnd = 450 - (time.sec * 6);
+                var secAngleStart = 90;
+                if (partialUpdate) {
+                    var secAngleEndRadians = Math.toRadians(secAngleEnd);
+                    var secAngleEndX = screenCenterX + (Math.cos(secAngleEndRadians) * secondsRadius).toNumber();
+                    var secAngleEndY = screenCenterY - (Math.sin(secAngleEndRadians) * secondsRadius).toNumber();
+                    secAngleStart = secAngleEnd + 6;
+                    var secAngleStartRadians = Math.toRadians(secAngleStart);
+                    var secAngleStartX = screenCenterX + (Math.cos(secAngleStartRadians) * secondsRadius).toNumber();
+                    var secAngleStartY = screenCenterY - (Math.sin(secAngleStartRadians) * secondsRadius).toNumber();
                     
-            dc.setColor(getColor(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
-            dc.setPenWidth(secondsPenWidth);
-            dc.drawArc(screenCenterX, screenCenterY, secondsRadius, Graphics.ARC_CLOCKWISE, secAngleStart, secAngleEnd);
+                    var x = Helpers.minimum(secAngleStartX, secAngleEndX) - (secondsPenWidth + 2);
+                    var y = Helpers.minimum(secAngleStartY, secAngleEndY) - (secondsPenWidth + 2);
+                    var width = (secAngleStartX - secAngleEndX).abs() + ((secondsPenWidth + 2) * 2);
+                    var height = (secAngleStartY - secAngleEndY).abs() + ((secondsPenWidth + 2) * 2);
+            
+                    dc.setClip(x, y, width, height);
+                }
+                        
+                dc.setColor(getColor(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
+                dc.setPenWidth(secondsPenWidth);
+                dc.drawArc(screenCenterX, screenCenterY, secondsRadius, Graphics.ARC_CLOCKWISE, secAngleStart, secAngleEnd);
+            }
         }
     }
 

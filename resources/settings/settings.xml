@@ -28,6 +28,9 @@
             <listEntry value="2">@Strings.GoalTypeActiveMinutes</listEntry>
         </settingConfig>
     </setting>
+    <setting propertyKey="@Properties.ShowSeconds" title="@Strings.ShowSecondsTitle">
+        <settingConfig type="boolean"/>
+    </setting>
     <setting propertyKey="@Properties.BackgroundColor" title="@Strings.BackgroundColorTitle">
         <settingConfig type="list">
             <listEntry value="-1">@Strings.ColorFromTheme</listEntry>

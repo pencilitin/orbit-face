@@ -1,6 +1,7 @@
 module Properties {
     const showOuterGoal = "ShowOuterGoal";
     const showInnerGoal = "ShowInnerGoal";
+    const showSeconds = "ShowSeconds";
     const theme = "Theme";
     const backgroundColor = "BackgroundColor";
     const hoursColor = "HoursColor";
