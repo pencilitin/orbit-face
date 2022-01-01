@@ -76,6 +76,10 @@ class OrbitView extends WatchUi.WatchFace {
                 values[:current] = info.activeMinutesWeek.total;
                 values[:goal] = info.activeMinutesWeekGoal;
                 break;
+            case OrbitApp.GOAL_TYPE_CALORIES:
+                values[:current] = info.calories;
+                values[:goal] = Application.Properties.getValue(Properties.caloriesGoal);
+                break;
         }
 
         if (values[:goal] < 1) {
