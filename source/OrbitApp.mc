@@ -3,6 +3,8 @@ using Toybox.WatchUi;
 
 class OrbitApp extends Application.AppBase {
 
+    public const GOAL_TYPE_CALORIES = 9;
+
     function initialize() {
         AppBase.initialize();
     }

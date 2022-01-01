@@ -3,6 +3,7 @@
     <string id="ThemeTitle">Color Theme</string>
     <string id="OuterGoalTitle">Outer Goal</string>
     <string id="InnerGoalTitle">Inner Goal</string>
+    <string id="CaloriesGoalTitle">Calories Goal</string>
     <string id="ShowSecondsTitle">Show Seconds</string>
     <string id="BackgroundColorTitle">Background Color</string>
     <string id="HoursColorTitle">Hours Color</string>
@@ -28,6 +29,7 @@
     <string id="GoalTypeSteps">Steps</string>
     <string id="GoalTypeFloorsClimbed">Floors Climbed</string>
     <string id="GoalTypeActiveMinutes">Active Minutes</string>
+    <string id="GoalTypeCalories">Calories (Manual Goal)</string>
 
     <string id="ColorFromTheme">From Theme</string>    
     <string id="ColorWhite">White</string>
@@ -46,4 +48,6 @@
     <string id="ColorPink">Pink</string>
     <string id="ColorBrown">Brown</string>
     <string id="ColorSalmon">Salmon</string>
+
+    <string id="CaloriesGoalError">Please enter a calories goal between 1 and 10000</string>
 </strings>

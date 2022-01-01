@@ -14,4 +14,5 @@ module Properties {
     
     const outerGoalType = "OuterGoalType";
     const innerGoalType = "InnerGoalType";
+    const caloriesGoal = "CaloriesGoal";
 }
