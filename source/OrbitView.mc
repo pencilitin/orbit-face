@@ -49,10 +49,10 @@ class OrbitView extends WatchUi.WatchFace {
     }
 
     private function updateGoals() {
-        var outerGoalType = Application.Properties.getValue(Properties.outerGoalType);
+        var outerGoalType = getApp().properties[Properties.outerGoalType];
         var outerGoalValues = getGoalValues(outerGoalType);
         outerGoalDrawable.setGoalValues(outerGoalValues[:current], outerGoalValues[:goal], outerGoalType);
-        var innerGoalType = Application.Properties.getValue(Properties.innerGoalType);
+        var innerGoalType = getApp().properties[Properties.innerGoalType];
         var innerGoalValues = getGoalValues(innerGoalType);
         innerGoalDrawable.setGoalValues(innerGoalValues[:current], innerGoalValues[:goal], innerGoalType);
     }
@@ -78,7 +78,7 @@ class OrbitView extends WatchUi.WatchFace {
                 break;
             case OrbitApp.GOAL_TYPE_CALORIES:
                 values[:current] = info.calories;
-                values[:goal] = Application.Properties.getValue(Properties.caloriesGoal);
+                values[:goal] = getApp().properties[Properties.caloriesGoal];
                 break;
         }
 

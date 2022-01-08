@@ -12,11 +12,12 @@ class OrbitDrawable extends WatchUi.Drawable {
         screenCenterX = screenWidth / 2;
         screenCenterY = screenHeight / 2;
     }
-    
+
     protected function getColor(colorPropertyName) {
-        var color = Application.Properties.getValue(colorPropertyName);
+        var properties = getApp().properties;
+        var color = properties[colorPropertyName];
         if (color == -1) {
-            var theme = Application.Properties.getValue(Properties.theme);
+            var theme = properties[Properties.theme];
             return themeColors[colorPropertyName][theme];
         }
         
