@@ -16,4 +16,4 @@ Fonts:
 - [Open Sans](https://github.com/googlefonts/opensans) from the open source Google font library
 
 Icons:
-- Step, stairs, and active time by me
+- Step, stairs, active time, and calories by me
