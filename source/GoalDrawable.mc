@@ -18,7 +18,7 @@ class GoalDrawable extends OrbitDrawable {
     }
     
     function draw(dc) {
-        if (Application.Properties.getValue(goalTypeName) == -1) {
+        if (getApp().properties[goalTypeName] == -1) {
             return;
         }
         

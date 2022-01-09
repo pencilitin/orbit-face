@@ -7,7 +7,26 @@ class TimeDrawable extends OrbitDrawable {
     function initialize(params) {
         OrbitDrawable.initialize(params);
         font = WatchUi.loadResource(Rez.Fonts.TimeFont);
+        showSeconds = getApp().properties[Properties.showSeconds];
+        secondsColor = getColor(Properties.secondsColor);
         secondsRadius = Helpers.minimum(screenWidth, screenHeight) / 2 - secondsPenWidth;
+        // Precalculate the clipping rectangles for each second (1-59).
+        for (var sec = 1; sec < 60; sec++) {
+            var secAngleEnd = 450 - (sec * 6);
+            var secAngleStart = 90;
+            var secAngleEndRadians = Math.toRadians(secAngleEnd);
+            var secAngleEndX = screenCenterX + (Math.cos(secAngleEndRadians) * secondsRadius).toNumber();
+            var secAngleEndY = screenCenterY - (Math.sin(secAngleEndRadians) * secondsRadius).toNumber();
+            secAngleStart = secAngleEnd + 6;
+            var secAngleStartRadians = Math.toRadians(secAngleStart);
+            var secAngleStartX = screenCenterX + (Math.cos(secAngleStartRadians) * secondsRadius).toNumber();
+            var secAngleStartY = screenCenterY - (Math.sin(secAngleStartRadians) * secondsRadius).toNumber();
+            
+            clipX[sec] = Helpers.minimum(secAngleStartX, secAngleEndX) - (secondsPenWidth + 2);
+            clipY[sec] = Helpers.minimum(secAngleStartY, secAngleEndY) - (secondsPenWidth + 2);
+            clipWidth[sec] = (secAngleStartX - secAngleEndX).abs() + ((secondsPenWidth + 2) * 2);
+            clipHeight[sec] = (secAngleStartY - secAngleEndY).abs() + ((secondsPenWidth + 2) * 2);
+        }
     }
     
     public function draw(dc) {
@@ -32,40 +51,39 @@ class TimeDrawable extends OrbitDrawable {
         dc.drawText(screenCenterX, screenCenterY, font, time.min.format("%02d"), Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // Draw seconds.
+        showSeconds = getApp().properties[Properties.showSeconds];
+        secondsColor = getColor(Properties.secondsColor);
         drawSeconds(dc, false);
     }
     
     public function drawSeconds(dc, partialUpdate) {
-        if (Application.Properties.getValue(Properties.showSeconds)) {
+        if (showSeconds) {
             var time = System.getClockTime();
             if (time.sec > 0) {
                 var secAngleEnd = 450 - (time.sec * 6);
-                var secAngleStart = 90;
+                var secAngleStart;
                 if (partialUpdate) {
-                    var secAngleEndRadians = Math.toRadians(secAngleEnd);
-                    var secAngleEndX = screenCenterX + (Math.cos(secAngleEndRadians) * secondsRadius).toNumber();
-                    var secAngleEndY = screenCenterY - (Math.sin(secAngleEndRadians) * secondsRadius).toNumber();
-                    secAngleStart = secAngleEnd + 6;
-                    var secAngleStartRadians = Math.toRadians(secAngleStart);
-                    var secAngleStartX = screenCenterX + (Math.cos(secAngleStartRadians) * secondsRadius).toNumber();
-                    var secAngleStartY = screenCenterY - (Math.sin(secAngleStartRadians) * secondsRadius).toNumber();
-                    
-                    var x = Helpers.minimum(secAngleStartX, secAngleEndX) - (secondsPenWidth + 2);
-                    var y = Helpers.minimum(secAngleStartY, secAngleEndY) - (secondsPenWidth + 2);
-                    var width = (secAngleStartX - secAngleEndX).abs() + ((secondsPenWidth + 2) * 2);
-                    var height = (secAngleStartY - secAngleEndY).abs() + ((secondsPenWidth + 2) * 2);
-            
-                    dc.setClip(x, y, width, height);
+                    secAngleStart = 450 - ((time.sec - 1) * 6);
+                    dc.setClip(clipX[time.sec], clipY[time.sec], clipWidth[time.sec], clipHeight[time.sec]);
+                }
+                else {
+                    secAngleStart = 90;
                 }
                         
-                dc.setColor(getColor(Properties.secondsColor), Graphics.COLOR_TRANSPARENT);
+                dc.setColor(secondsColor, Graphics.COLOR_TRANSPARENT);
                 dc.setPenWidth(secondsPenWidth);
                 dc.drawArc(screenCenterX, screenCenterY, secondsRadius, Graphics.ARC_CLOCKWISE, secAngleStart, secAngleEnd);
             }
         }
     }
 
-    private var font;    
+    private var font;
+    private var showSeconds;
+    private var secondsColor;
     private var secondsRadius;
     private const secondsPenWidth = 5;
+    private var clipX = new [60];
+    private var clipY = new [60];
+    private var clipWidth = new [60];
+    private var clipHeight = new [60];
 }
